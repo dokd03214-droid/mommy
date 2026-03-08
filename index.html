@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mart 8</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+height:100vh;
+background:linear-gradient(#ff9ec4,#ffd9ea);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+/* envelope */
+
+.envelope{
+position:relative;
+width:90%;
+max-width:360px;
+height:220px;
+background:#ff6fa5;
+border-radius:10px;
+cursor:pointer;
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
+overflow:visible;
+}
+
+/* bottom */
+
+.envelope:before{
+content:"";
+position:absolute;
+bottom:0;
+width:100%;
+height:100%;
+background:#ff7fb0;
+clip-path:polygon(0 100%,50% 55%,100% 100%);
+z-index:2;
+}
+
+/* flap */
+
+.flap{
+position:absolute;
+top:0;
+width:100%;
+height:100%;
+background:#ff4f8b;
+clip-path:polygon(0 0,50% 60%,100% 0);
+transform-origin:top;
+transition:1s;
+z-index:3;
+}
+
+.envelope.open .flap{
+transform:rotateX(180deg);
+}
+
+/* letter */
+
+.letter{
+position:absolute;
+width:85%;
+max-width:300px;
+background:white;
+padding:25px;
+border-radius:10px;
+left:50%;
+transform:translateX(-50%) translateY(200px);
+transition:1.2s;
+text-align:center;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+z-index:4;
+opacity:0;
+}
+
+.envelope.open .letter{
+transform:translateX(-50%) translateY(-90px);
+opacity:1;
+}
+
+.letter h2{
+margin-bottom:10px;
+font-size:22px;
+}
+
+.letter p{
+font-size:15px;
+line-height:1.5;
+}
+
+/* button */
+
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+background:#ff4f8b;
+color:white;
+border-radius:8px;
+font-size:15px;
+cursor:pointer;
+}
+
+/* from text */
+
+.from{
+margin-top:15px;
+font-weight:bold;
+color:#ff4f8b;
+opacity:0;
+transition:1s;
+}
+
+/* hearts */
+
+.heart{
+position:absolute;
+bottom:-40px;
+font-size:22px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+
+100%{
+transform:translateY(-800px);
+opacity:0;
+}
+}
+
+/* extra жижиг дэлгэц */
+
+@media(max-width:400px){
+
+.envelope{
+height:200px;
+}
+
+.letter h2{
+font-size:20px;
+}
+
+.letter p{
+font-size:14px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://www.youtube.com/watch?v=XUxLPLO3eGg&list=RDXUxLPLO3eGg&start_radio=1&pp=oAcB.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope" id="env">
+
+<div class="flap"></div>
+
+<div class="letter">
+
+<h2>🌸🌸МАРТ 8🌸🌸</h2>
+
+<p>
+Хайрт ээж тандаа олон улсын эмэгтэйчүүдийн эрхийг хамгаалах өдрийн баярын мэнд хүргэе
+<br><br>
+Сайхан баярлаарай❤️❤️❤️
+</p>
+
+<button id="heartBtn">next</button>
+
+<div class="from" id="fromText">
+Дөлгөөн-c
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const env=document.getElementById("env");
+const fromText=document.getElementById("fromText");
+const music=document.getElementById("music");
+const heartBtn=document.getElementById("heartBtn");
+
+env.addEventListener("click",()=>{
+
+if(!env.classList.contains("open")){
+env.classList.add("open");
+music.play().catch(()=>{});
+}
+
+});
+
+heartBtn.addEventListener("click",(e)=>{
+
+e.stopPropagation();
+
+fromText.style.opacity=1;
+
+for(let i=0;i<80;i++){
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"%";
+heart.style.animationDelay=Math.random()*5+"s";
+
+document.body.appendChild(heart);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
